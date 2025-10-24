@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const uploadRoute = require('./routes/upload');
 const reportsRoute = require('./routes/reports');
 const { morgan } = require('./utils/logger');
@@ -7,6 +8,12 @@ const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
 const app = express();
+
+app.use(cors({
+  origin: 'https://creditsea-frontend-omega.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
 app.use(express.json());
 app.use(morgan('dev'));
 
